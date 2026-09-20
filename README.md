@@ -14,7 +14,7 @@ sudo apt update
 sudo apt install build-essential libwebsockets-dev libcjson-dev
 ```
 
-The project is configured by the `Makefile` for an **ARMv6 Raspberry Pi** target and uses the **ARM sysroot** configured by `SYSROOT`. After the dependencies and cross-compilation environment are available and you move inside the downloaded project's `/RTES_finalProject` root directory, execute the provided **bash script** with:
+The project is configured by the `Makefile` for an **ARMv6 Raspberry Pi** target and uses the **ARM sysroot** configured by `SYSROOT`. After the dependencies and cross-compilation environment are available and you move inside the downloaded project's `/RTES_RealTimeProject` root directory, execute the provided **bash script** with:
 
 ```bash
 bash readyScript.sh
