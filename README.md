@@ -34,7 +34,7 @@ The script asks for the Raspberry Pi target in the format `name@IP` once. After 
 - Compiles the project with `make` (*\*targets the ARMv6 processor\**).
 - Copies the resulting `main` executable to the Raspberry Pi with `scp` (*\*password input required\**).
 - Starts the program remotely in the background and redirects its output to `main.log` (*\*password input required\**).
-- Opens an SSH session to the Raspberry Pi.
+- Opens an SSH session to the Raspberry Pi (*\*password input required\**).
     - After all these steps you will find yourself connected to your rpi with ssh. To monitor the execution of the program type the command `tail -f metrics_log.txt`. The file should show a live new record ~ every second. `main.log` contains the **stdout** & **stderr** outputs, open it with `cat main.log` to see its, debug purpose, contents.
 
 Therefore, when the dependencies and cross-compilation environment are already configured, one execution of `readyScript.sh` performs the complete clean, compile, deployment, remote start, and connection workflow. The script requires SSH access to the Raspberry Pi and may request the corresponding password or use an existing SSH key configuration.
