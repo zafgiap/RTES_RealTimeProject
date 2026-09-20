@@ -1,0 +1,4 @@
+*.d
+*.o
+debug_log.txt
+main
