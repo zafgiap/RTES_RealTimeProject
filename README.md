@@ -46,7 +46,7 @@ The execution record of this day is:
 | Item | Value |
 | --- | :---: |
 | Targeted record date | **15/09/2026** |
-| Board used | **Raspberry Pi Zero W** |
+| Board used | **Raspberry Pi Zero W** (*OS: Raspberry Pi OS Lite, 32-bit headless*) |
 | Start | **14/09/2026 23:59:02.194231** (*\*-1 minute safety factor\**)|
 | Finish | **16/09/2026 00:01:01.195604** (*\*+1 minute safety factor\**)|
 | Reported duration | **24 hours, 1 minute, 59 seconds** |
