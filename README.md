@@ -14,7 +14,45 @@ sudo apt update
 sudo apt install build-essential libwebsockets-dev libcjson-dev
 ```
 
-The project is configured by the `Makefile` for an **ARMv6 Raspberry Pi** target and uses the **ARM sysroot** configured by `SYSROOT`. After the dependencies and cross-compilation environment are available and you move inside the downloaded project's `/RTES_RealTimeProject` root directory, execute the provided **bash script** with:
+## Cross Compilation Setup - Configurations
+
+The project is configured by the `Makefile` for an **ARMv6 Raspberry Pi Zero / Zero W**.
+
+The following GitHub repository was used to compile the program on the Host Linux machine for deployment to the target hardware: [Cross Compile toolchain](https://github.com/enribus/docker-arm-cross-toolchain). Download the `armv6-rpi-linux-gnueabihf` toolchain, extract the compressed folder and add its `bin` directory to your `PATH` with:
+
+`export PATH=$HOME/rpi-armv6-toolchain/x-tools/armv6-rpi-linux-gnueabihf/bin:$PATH`
+
+This adds the compiler to the `PATH` only for the current terminal session. The configured `Makefile` already uses this specific compiler through:
+
+`CROSS_COMPILE ?= armv6-rpi-linux-gnueabihf-`
+
+Since the project depends on target-specific libraries such as `libwebsockets`, `cJSON` and OpenSSL, a **Raspberry Pi sysroot** is also required on the Host machine.
+
+First, install the required development packages on the Raspberry Pi:
+
+`sudo apt update`
+
+`sudo apt install libwebsockets-dev libcjson-dev libssl-dev`
+
+On the Host machine, create the sysroot with:
+
+`mkdir -p $HOME/rpi-sysroot`
+
+Then copy the required ARM headers, shared libraries and runtime files from the Raspberry Pi:
+
+`rsync -avz <PI_USER>@<PI_IP>:/usr/include/ $HOME/rpi-sysroot/usr/include/`
+
+`rsync -avz <PI_USER>@<PI_IP>:/usr/lib/arm-linux-gnueabihf/ $HOME/rpi-sysroot/usr/lib/arm-linux-gnueabihf/`
+
+`rsync -avz <PI_USER>@<PI_IP>:/lib/arm-linux-gnueabihf/ $HOME/rpi-sysroot/lib/arm-linux-gnueabihf/`
+
+`rsync -avz <PI_USER>@<PI_IP>:/usr/lib/linux/ $HOME/rpi-sysroot/usr/lib/linux/`
+
+`rsync -avz <PI_USER>@<PI_IP>:/lib/ld-linux-armhf.so.3 $HOME/rpi-sysroot/lib/`
+
+The sysroot allows the cross-compiler to use the ARM versions of the libraries installed on the Raspberry Pi instead of the x86-64 libraries of the Host machine. We could also attempt to skip this step and try to compile the libraries with our `armv6-rpi-linux-gnueabihf` cross compiler toolchain as well, but compatibility issues may occure, so this step was added to increase the compatibility safety of this project.
+
+After the dependencies and cross-compilation environment are available and configured move inside the downloaded project's `/RTES_RealTimeProject` root directory and execute the provided **bash script** with:
 
 ```bash
 bash readyScript.sh
