@@ -1,6 +1,6 @@
 # Raspberry Pi Zero / Zero W uses the ARM1176JZF-S ARMv6 processor.
 CROSS_COMPILE ?= armv6-rpi-linux-gnueabihf-
-SYSROOT       ?= /home/zafeiris/rpi-sysroot
+SYSROOT       ?= $(HOME)/rpi-sysroot
 CC       := $(CROSS_COMPILE)gcc
 TARGET   := main
 
