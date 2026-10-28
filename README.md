@@ -155,6 +155,24 @@ sudo iw dev <name> set power_save off
 
 ## 3. Post processing
 
+### **-** Jitter diagram
+
+As required by the assignment, the wake-up time of the monitor thread was recorded using `clock_gettime()` with the `CLOCK_REALTIME` clock. The timestamp was captured immediately after each activation of the thread, before any other processing was performed. Using the first recorded timestamp as the reference and the specified one-second period, the expected wake-up time of every subsequent activation was calculated. The scheduling jitter was then determined as the difference between each measured wake-up time and its corresponding expected value. The resulting jitter is illustrated in the following diagram.
+
+![Periodic Message Jitter](images/jitter.png)
+
+### **-** Message load & Buffer diagram
+
+In the following diagram we can see the relation between the message load (per second) and the buffer occupancy.
+
+![Message Load and Circular Buffer Occupancy](images/message_load_buffer.png)
+
+### **-** CPU usage diagram
+
+In this last diagram we see how the CPU usage (**Busy**) is related to the rate the messages arrive. Here it is clearly visible that the more the message load the more the increase in the CPU usage:
+
+![Relationship Between Incoming Messages and CPU Usage](images/cpu_usage.png)
+
 ## 4. Previous experiments and robustness
 
 The circular-buffer capacity was evaluated with three configurations:
